@@ -103,7 +103,7 @@ export function renderHeader(containerId = "header-container") {
           <div class="head-wrap">
             <div class="site-branding">
               <h2 class="site-title">
-                <a href="index.html" rel="home">eCommerce Gem</a>
+                <a href="/" rel="home">eCommerce Gem</a>
               </h2>
               <h3 class="site-description">Multipurpose e-Commerce WP Theme</h3>
             </div>
@@ -113,7 +113,7 @@ export function renderHeader(containerId = "header-container") {
                 <div class="wrap-menu-content">
                   <div class="menu-main-menu-container">
                     <ul id="primary-menu" class="menu">
-                      <li><a href="index.html">Home</a></li>
+                      <li><a href="/epiphany/">Home</a></li>
                       <li class="menu-item-has-children">
                         <a href="/epiphany/pages/shop.html">Shop</a>
                         <ul class="sub-menu">
