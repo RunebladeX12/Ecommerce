@@ -124,59 +124,10 @@ function main() {
 window.addEventListener('DOMContentLoaded', main);
 
 
-// Select the gallery container
-const galleryContainer = document.getElementById('gallery-1');
 
-// Step 1: Clear existing content inside the gallery
-galleryContainer.innerHTML = '';
 
-// Step 2: Shuffle the array to randomize image order
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array.slice(0, 9); // return only the first 9 items after shuffling
-  }
-  
-const shuffledProducts = shuffleArray(products);
+ 
 
-// Step 3: Loop through the shuffled array and build elements
-shuffledProducts.forEach(product => {
-  // Create <figure class="gallery-item">
-  const figure = document.createElement('figure');
-  figure.classList.add('gallery-item');
-
-  // Create <div class="gallery-icon landscape">
-  const div = document.createElement('div');
-  div.classList.add('gallery-icon', 'landscape');
-
-  // Create <a href="...">
-  const a = document.createElement('a');
-  a.href = product.type;
-
-  // Create <img ...>
-  const img = document.createElement('img');
-  img.setAttribute('width', '150');
-  img.setAttribute('height', '150');
-  img.setAttribute('class', 'attachment-thumbnail size-thumbnail');
-  img.setAttribute('alt', product.name);
-
-  // Use srcset from object
-  const srcset = product.image.srcset;
-  img.setAttribute('srcset', srcset);
-
-  // Extract the 150w image for src
-  const matches = srcset.match(/(https:\/\/[^\s]+?150\*150\.jpeg)\s150w/);
-  const src150 = matches ? matches[1].replace('*', 'x') : product.image.src;
-  img.setAttribute('src', src150);
-
-  // Append everything
-  a.appendChild(img);
-  div.appendChild(a);
-  figure.appendChild(div);
-  galleryContainer.appendChild(figure);
-});
 
 
 // Step 2: Helper to split and normalize text into keywords
