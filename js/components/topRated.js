@@ -1,5 +1,5 @@
 // topRated.js
-import { products } from "/epiphany/js/products.js";
+import { products } from "/js/products.js";
 
 /**
  * Shuffle an array randomly.

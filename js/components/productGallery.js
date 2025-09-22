@@ -1,4 +1,4 @@
-import { products } from "../products.js";
+import { products } from "/js/products.js";
 
 // Utility: shuffle array
 function shuffleArray(array) {

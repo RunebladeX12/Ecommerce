@@ -113,27 +113,27 @@ export function renderHeader(containerId = "header-container") {
                 <div class="wrap-menu-content">
                   <div class="menu-main-menu-container">
                     <ul id="primary-menu" class="menu">
-                      <li><a href="/epiphany/">Home</a></li>
+                      <li><a href="/">Home</a></li>
                       <li class="menu-item-has-children">
-                        <a href="/epiphany/pages/shop.html">Shop</a>
+                        <a href="/pages/shop.html">Shop</a>
                         <ul class="sub-menu">
-                          <li><a href="/epiphany/pages/category.html?category=Skin%20Care%20Supplements">Skin Care </a></li>
-                          <li><a href="/epiphany/pages/category.html?category=Herbal%20Supplements">Herbal </a></li>
-                          <li><a href="/epiphany/pages/category.html?category=Anti-Aging">Anti-Aging</a></li>
-                          <li><a href="/epiphany/pages/category.html?category=Health%20And%20Wellness">Health</a></li>
-                          <li><a href="/epiphany/pages/category.html?category=Supplements">Supplements</a></li>
+                          <li><a href="/pages/category.html?category=Skin%20Care%20Supplements">Skin Care </a></li>
+                          <li><a href="/pages/category.html?category=Herbal%20Supplements">Herbal </a></li>
+                          <li><a href="/pages/category.html?category=Anti-Aging">Anti-Aging</a></li>
+                          <li><a href="/pages/category.html?category=Health%20And%20Wellness">Health</a></li>
+                          <li><a href="/pages/category.html?category=Supplements">Supplements</a></li>
                         </ul>
                       </li>
                       <li class="menu-item-has-children">
-                        <a href="/eliphany/pages/my-account.html">My account</a>
+                        <a href="/pages/my-account.html">My account</a>
                         <ul class="sub-menu">
-                          <li><a href="/epiphany/pages/my-accounts/cart.html">Cart</a></li>
-                          <li><a href="/epiphany/pages/my-accounts/checkout.html">Checkout</a></li>
-                          <li><a href="/epiphany/pages/my-accounts/wishlist.html">Wishlist</a></li>
+                          <li><a href="/pages/my-accounts/cart.html">Cart</a></li>
+                          <li><a href="/pages/my-accounts/checkout.html">Checkout</a></li>
+                          <li><a href="/pages/my-accounts/wishlist.html">Wishlist</a></li>
                         </ul>
                       </li>
-                      <li><a href="/epiphany/pages/blog.html">Blog</a></li>
-                      <li><a href="/epiphany/pages/contact.html">Contact Us</a></li>
+                      <li><a href="/pages/blog.html">Blog</a></li>
+                      <li><a href="/pages/contact.html">Contact Us</a></li>
                     </ul>
                   </div>
                 </div>

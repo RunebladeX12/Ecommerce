@@ -1,4 +1,4 @@
-import { products } from '../products.js';
+import { products } from '/js/products.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('id');
