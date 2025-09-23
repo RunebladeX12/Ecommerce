@@ -48,15 +48,15 @@ export function renderHeader(containerId = "header-container") {
                                                 <div class="top-wishlist-wrapper">
                         <div class="top-icon-wrap">
                                                         
-                                <a class="wishlist-btn" href="epiphany/pages/my-accounts/wishlist.html"><i class="fa fa-heart" aria-hidden="true"></i><span class="wish-value">1</span></a>
+                                <a class="wishlist-btn" href="/pages/my-accounts/wishlist.html"><i class="fa fa-heart" aria-hidden="true"></i></a>
                               
                                                         </div>
                     </div>
                                             <div class="top-cart-wrapper">
                         <div class="top-icon-wrap">
-                            <a href="pages/my-accounts/cart.html">
+                            <a href="/pages/my-accounts/cart.html">
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                <span class="cart-value ec-cart-fragment"> 0</span>
+                              
                             </a>
                         </div>
                         <div class="top-cart-content">

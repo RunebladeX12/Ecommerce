@@ -47,3 +47,9 @@
     border-radius: 0px;
     text-transform: uppercase;
 }
+
+.wishlist-added {
+  transform: scale(1.2);
+  color: #ff0000; /* Red for filled heart */
+  transition: transform 0.3s ease, color 0.3s ease;
+}

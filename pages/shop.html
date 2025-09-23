@@ -59,7 +59,7 @@
     <link rel='stylesheet' id='ecommerce-gem-icons-css' href='/styles/icon.css' type='text/css' media='all' />
 
     <link rel='stylesheet' id='font-awesome-css' href='/styles/font-awesome.min.css?ver=4.7.0' type='text/css' media='all' />
-
+    <link rel='stylesheet' id='font-awesome-css' href='/styles/epiphany.css' type='text/css' media='all' />
     <style id='font-awesome-inline-css' type='text/css'>
         [data-font="FontAwesome"]:before {font-family: 'FontAwesome' !important;content: attr(data-icon) !important;speak: none !important;font-weight: normal !important;font-variant: normal !important;text-transform: none !important;line-height: 1 !important;font-style: normal !important;-webkit-font-smoothing: antialiased !important;-moz-osx-font-smoothing: grayscale !important;}
     </style>
@@ -506,7 +506,7 @@
                     <div class="view-detail-wishlist-wrap">
                         <div class="view-detail-wishlist-inner">
                             <div class="add-to-wishlist-wrap">
-                                <div class="yith-wcwl-add-to-wishlist">
+                                <div class="yith-wcwl-add-to-wishlist add_to_wishlist1">
                                     <div class="yith-wcwl-add-button show" style="display:block">
                                         <a href="#" rel="nofollow" data-product-id="${product.id.split('-')[1]}" data-product-type="simple" class="add_to_wishlist"><i class="far fa-heart" aria-hidden="true"></i></a>
                                     </div>
@@ -597,6 +597,82 @@
   renderHeader("header-container");
 </script>
 
+<script type="module">
+// Assume products array is defined here or imported
+// Example: const products = [{ id: 'product-1', name: 'Product 1', price: 10.00, image: { src: 'img.jpg' } }, ...];
+// Or: import { products } from './products.js'; // If in separate file
+import { products } from '/js/products.js';
+import { addToWishlist } from '/js/wishList.js';
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded - Starting wishlist initialization');
+    
+    if (typeof products === 'undefined' || !Array.isArray(products)) {
+        console.error('products array not found or not an array - Define or import it');
+        return;
+    }
+    console.log('Products array found:', products.length);
+
+    const wishlistButtons = document.querySelectorAll('.add_to_wishlist');
+    console.log('Found wishlist buttons:', wishlistButtons.length);
+    if (wishlistButtons.length === 0) {
+        console.error('No .add_to_wishlist elements found');
+    }
+
+    wishlistButtons.forEach(link => {
+        console.log('Attaching click listener to button with data-product-id:', link.getAttribute('data-product-id'));
+        link.addEventListener('click', function(e) {
+            console.log('Click event triggered on .add_to_wishlist');
+            e.preventDefault();
+
+            const productId = this.getAttribute('data-product-id');
+            if (!productId) {
+                console.error('No data-product-id found');
+                return;
+            }
+            console.log('Product ID from button:', productId);
+
+            console.log('Looking up product in array...');
+            const foundProduct = products.find(p => p.id.split('-')[1] === productId);
+            if (!foundProduct) {
+                console.error('Product not found in array for ID:', productId);
+                return;
+            }
+            console.log('Found Product:', foundProduct);
+
+            // Use the full product object (adjust if image is image.src)
+            const product = {
+                id: foundProduct.id,
+                name: foundProduct.name,
+                price: foundProduct.price,
+                image: foundProduct.image.src || foundProduct.image // Adjust based on your array structure
+            };
+            console.log('Prepared Product for Wishlist:', product);
+
+            console.log('Calling addToWishlist...');
+            addToWishlist(product);
+
+            console.log('Updating icon for animation...');
+            const icon = this.querySelector('i');
+            if (icon) {
+                console.log('Icon found - Applying classes');
+                icon.classList.add('fas', 'wishlist-added');
+                icon.classList.remove('far');
+                setTimeout(() => {
+                    icon.classList.remove('wishlist-added');
+                    console.log('Animation timeout complete');
+                }, 300);
+            } else {
+                console.error('No icon <i> found');
+            }
+        });
+    });
+
+    console.log('Initializing wishlist for pre-filled icons');
+    initWishlist();
+    console.log('Wishlist initialization complete');
+});
+</script>
+
 <a href="#page" class="scrollup" id="btn-scrollup"></a><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="application/ld+json">{"@context":"https:\/\/schema.org\/","@graph":[{"@type":"Product","@id":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/black-shorts\/","name":"Black Shorts","url":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/black-shorts\/"},{"@type":"Product","@id":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/collar-t-shirt\/","name":"Collar T-Shirt","url":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/collar-t-shirt\/"},{"@type":"Product","@id":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/cotton-shirts\/","name":"Cotton Shirts","url":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/cotton-shirts\/"},{"@type":"Product","@id":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/gents-t-shirt\/","name":"Gents T-Shirt","url":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/gents-t-shirt\/"},{"@type":"Product","@id":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/jeans-jacket\/","name":"Jeans Jacket","url":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/jeans-jacket\/"},{"@type":"Product","@id":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/ladies-hat\/","name":"Ladies Hat","url":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/ladies-hat\/"},{"@type":"Product","@id":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/ladies-jeans\/","name":"Ladies Jeans","url":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/ladies-jeans\/"},{"@type":"Product","@id":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/leather-jacket\/","name":"Leather Jacket","url":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/leather-jacket\/"},{"@type":"Product","@id":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/midi-skirt\/","name":"Midi Skirt","url":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/product\/midi-skirt\/"}]}</script>	<script type="text/javascript">
     var c = document.body.className;
     c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
@@ -614,6 +690,7 @@ var wpcf7 = {"apiSettings":{"root":"https:\/\/www.prodesigns.com\/wordpress-them
 var wc_add_to_cart_params = {"ajax_url":"\/wordpress-themes\/demo\/ecommerce-gem\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/wordpress-themes\/demo\/ecommerce-gem\/?wc-ajax=%%endpoint%%","i18n_view_cart":"View cart","cart_url":"https:\/\/www.prodesigns.com\/wordpress-themes\/demo\/ecommerce-gem\/cart\/","is_cart":"","cart_redirect_after_add":"no"};
 /* ]]> */
 </script>
+<script src="/js/wishList.js"></script>
 <!-- replace all javascript links with that of local links -->
 <script type='module' src='/js/add-to-cart.js?ver=3.4.2'></script>
 <script type='text/javascript' src='/js/jquery/jquery-blockui.js?ver=2.70'></script>
