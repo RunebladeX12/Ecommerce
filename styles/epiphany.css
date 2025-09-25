@@ -53,3 +53,20 @@
   color: #ff0000; /* Red for filled heart */
   transition: transform 0.3s ease, color 0.3s ease;
 }
+
+/* 1.  CSS – put in your style-sheet or in a <style> tag
+---------------------------------------------------------- */
+.woo-error-msg {          /* red line that appears under the input */
+    color:#d63333;
+    font-size:0.85em;
+    margin-top:4px;
+    display:block;
+}
+.woo-banner-error{        /* top-of-page banner */
+    background:#fee;
+    border-left:4px solid #c00;
+    color:#900;
+    padding:12px 16px;
+    margin:0 0 20px 0;
+    border-radius:3px;
+}

@@ -80,6 +80,7 @@ export function removeFromWishlist(itemId) {
   }
   const event = new Event('wishlistUpdated');
   window.dispatchEvent(event);
+  location.reload();
 }
 
 export function wishListAddToCart(itemId) {

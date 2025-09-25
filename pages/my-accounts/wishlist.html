@@ -189,7 +189,7 @@
    <script type="module" src="/js/wishlist.js"></script>
 <script>console.log('wishlist.js loaded:', typeof loadWishlistFromStorage !== 'undefined');</script>
 <script type="module">
-  import { loadWishlistFromStorage, wishlistItems, wishListAddToCart } from '/js/wishList.js';
+  import { loadWishlistFromStorage, wishlistItems, wishListAddToCart, removeFromWishlist } from '/js/wishList.js';
   import { products } from '/js/products.js';
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -248,6 +248,15 @@
       });
     });
 
+       // Add event listeners
+    document.querySelectorAll('.product-remove .remove').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const itemId = this.getAttribute('data-product-id');
+        removeFromWishlist(itemId);
+      });
+    });
+    
     // Check for notification after reload
     const notificationData = sessionStorage.getItem('cartNotification');
     if (notificationData) {
