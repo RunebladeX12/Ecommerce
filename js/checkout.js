@@ -193,7 +193,10 @@
       .concat([``, `Total: ${totalAmount.textContent.match(/\d+\.\d{2}/)[0]}`])
       .join('\n');
 
-    window.location.href = `https://wa.me/${SELLER_TEL}?text=${encodeURIComponent(msg)}`;
+    // open WhatsApp in a NEW tab
+   const whatsappURL = `https://wa.me/${SELLER_TEL}?text=${encodeURIComponent(msg)}`;
+   window.open(whatsappURL, '_blank');          // ← keeps this page alive
+
 
     /* optional cart wipe */
     if (window.confirm('Clear cart after order?')) {
