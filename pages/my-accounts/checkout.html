@@ -261,7 +261,14 @@
             <!-- sidebar and footer would be here, but assuming truncated, omit or add if needed -->
         </div></div></div>
 </div>
-
+<!-- 1.  put this once anywhere inside <body> -->
+<div id="confirmOverlay" class="confirm-overlay">
+  <div class="confirm-box">
+    <p>Clear cart after order?</p>
+    <button id="confirmYes" class="btn-yes">Yes</button>
+    <button id="confirmNo"  class="btn-no">No</button>
+  </div>
+</div>
 <a href="#page" class="scrollup" id="btn-scrollup"></a>	
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript">
     var c = document.body.className;

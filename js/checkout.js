@@ -1,5 +1,5 @@
 /* =========================================================
- *  CHECKOUT PAGE – REFACTORED
+ *  CHECKOUT PAGE – REFACTORED (with custom modal)
  * ========================================================*/
 (() => {
   'use strict';
@@ -39,13 +39,29 @@
    *  1.  INITIALISATION
    * ========================================================*/
   function init() {
+    injectModal();          // add HTML for custom confirm
     buildForm();
     renderCart();
     els.btn.addEventListener('click', handlePlaceOrder);
   }
 
   /* =========================================================
-   *  2.  BUILD BILLING FORM
+   *  2.  INJECT CUSTOM MODAL INTO BODY
+   * ========================================================*/
+  function injectModal(){
+    const markup = `
+      <div id="confirmOverlay" class="confirm-overlay">
+        <div class="confirm-box">
+          <p>Clear cart after order?</p>
+          <button id="confirmYes" class="btn-yes">Yes</button>
+          <button id="confirmNo"  class="btn-no">No</button>
+        </div>
+      </div>`;
+    document.body.insertAdjacentHTML('beforeend', markup);
+  }
+
+  /* =========================================================
+   *  3.  BUILD BILLING FORM
    * ========================================================*/
   function buildForm() {
     FIELDS.forEach(f => els.wrapper.appendChild(createField(f)));
@@ -88,11 +104,11 @@
     const country = document.getElementById('billing_country').value;
     const stateEl = document.getElementById('billing_state');
     stateEl.innerHTML = '';
-    (country === 'NG' ? NG_STATES : []).forEach(st => stateEl.add(new Option(st, st)));
+    (country === 'NG' ? NG_STATES : []).forEach(st => stateEl.append(new Option(st, st)));
   }
 
   /* =========================================================
-   *  3.  CART RENDERING
+   *  4.  CART RENDERING
    * ========================================================*/
   function renderCart() {
     els.items.innerHTML = '';
@@ -120,7 +136,7 @@
                       </span>`;
 
   /* =========================================================
-   *  4.  VALIDATION
+   *  5.  VALIDATION + ERROR DISPLAY
    * ========================================================*/
   function validateForm() {
     clearErrors();
@@ -141,7 +157,7 @@
         ok = false;
         showFieldError(el, f);
       }
-      el.oninput = () => validateForm(); // live-fix feel
+      el.oninput = () => validateForm();
     });
 
     if (!ok) showTopBanner('Please correct the highlighted fields below.');
@@ -173,9 +189,24 @@
   }
 
   /* =========================================================
-   *  5.  PLACE ORDER
+   *  6.  CUSTOM MODAL PROMISE
    * ========================================================*/
-  function handlePlaceOrder(e) {
+  function askClearCart(){
+    const overlay = document.getElementById('confirmOverlay');
+    overlay.classList.add('show');
+
+    return new Promise(res=>{
+      const yes = ()=>{ overlay.classList.remove('show'); res(true);  };
+      const no  = ()=>{ overlay.classList.remove('show'); res(false); };
+      document.getElementById('confirmYes').onclick = ()=>{ yes(); };
+      document.getElementById('confirmNo').onclick  = ()=>{ no();  };
+    });
+  }
+
+  /* =========================================================
+   *  7.  PLACE ORDER
+   * ========================================================*/
+  async function handlePlaceOrder(e) {
     e.preventDefault();
     if (!validateForm()) {
       const firstBad = document.querySelector('.woocommerce-invalid');
@@ -186,30 +217,31 @@
     const data = FIELDS.reduce((o, f) => (o[f.id] = document.getElementById(f.id).value, o), {});
     const msg = [`New Order`, ``, `Customer Details:`]
       .concat(Object.entries(data).map(([k, v]) =>
-        `${k.replace('billing_', '').replace(/_/g, ' ')
-           .replace(/\b\w/g, l => l.toUpperCase())}: ${v}`))
+        `${k.replace('billing_','').replace(/_/g,' ')
+           .replace(/\b\w/g,l=>l.toUpperCase())}: ${v}`))
       .concat([``, `Cart Items:`])
       .concat(cartItems.map(it => `${it.name} x${it.quantity} - $${(it.price * it.quantity).toFixed(2)}`))
       .concat([``, `Total: ${totalAmount.textContent.match(/\d+\.\d{2}/)[0]}`])
       .join('\n');
 
-    // open WhatsApp in a NEW tab
-   const whatsappURL = `https://wa.me/${SELLER_TEL}?text=${encodeURIComponent(msg)}`;
-   window.open(whatsappURL, '_blank');          // ← keeps this page alive
+    const whatsappURL = `https://wa.me/${SELLER_TEL}?text=${encodeURIComponent(msg)}`;
+    window.open(whatsappURL, '_blank');          // keep this page alive
 
-
-    /* optional cart wipe */
-    if (window.confirm('Clear cart after order?')) {
+    const userWantsClear = await askClearCart(); // wait for modal tap
+    if (userWantsClear){
       localStorage.removeItem('cartItems');
       cartItems = [];
       renderCart();
+      location.reload();
     }
   }
 
   /* =========================================================
-   *  6.  BOOTSTRAP
+   *  8.  BOOTSTRAP
    * ========================================================*/
-  document.readyState === 'loading'
-    ? document.addEventListener('DOMContentLoaded', init)
-    : init(); // already loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
